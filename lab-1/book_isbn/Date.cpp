@@ -39,14 +39,14 @@ Date::Date(int d)
 Date::Date(int d, int m)
 {
     _d = d > 0 ? d : 1;
-    _m = m > 0 && m <= 12 ? d : 1;
+    _m = m > 0 && m <= 12 ? m : 1;
     _y = 0;
 }
 
 Date::Date(int d, int m, int y)
 {
     _d = d > 0 ? d : 1;
-    _m = m > 0 && m <= 12 ? d : 1;
+    _m = m > 0 && m <= 12 ? m : 1;
     _y = y ? y : 0;
 }
 
