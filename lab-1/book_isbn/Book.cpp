@@ -119,7 +119,7 @@ bool Book::validateISBN(string isbn)
         string parts1 = (isbn.substr(0, separators[0]));
         string parts2 = (isbn.substr(separators[0] + 1, (separators[1] - separators[0]) - 1));
         string parts3 = (isbn.substr(separators[1] + 1, (separators[2] - separators[1]) - 1));
-        string parts4 = (isbn.substr(separators[2] + 1));
+        // string parts4 = (isbn.substr(separators[2] + 1));
 
         // check each part in order to check if they're composed only by integers
         for (char const &ch : parts1)
