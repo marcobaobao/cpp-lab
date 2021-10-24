@@ -107,7 +107,7 @@ bool Book::validateISBN(string isbn)
                 separators.push_back(i);
             }
         }
-        // there are less than 3 parts in the code so it doensn't respect the n-n-n-x format
+        // there are less than 3 parts in the code so it doensn't matches the n-n-n-x format
         if (separators.size() < 3)
         {
             throw runtime_error("wrong ISBN format");
