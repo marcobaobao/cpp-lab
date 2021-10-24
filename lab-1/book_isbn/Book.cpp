@@ -95,17 +95,14 @@ bool Book::isValid(string isbn, string title, string author)
 
 bool Book::validateISBN(string isbn)
 {
-    bool validIsbn = false;
     if (isbn.size() > 0)
     {
-        char sep = '-';
-        // vector<string> parts;
         vector<int> separators;
 
         // scan separators position
         for (unsigned int i = 0; i < isbn.size(); i++)
         {
-            if (isbn[i] == sep)
+            if (isbn[i] == '-')
             {
                 separators.push_back(i);
             }
