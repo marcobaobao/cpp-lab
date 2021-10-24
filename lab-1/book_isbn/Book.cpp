@@ -90,7 +90,7 @@ Book::Book(string isbn, string title, string author, Date copyrightDate, bool ch
 
 bool Book::isValid(string isbn, string title, string author)
 {
-    return validateISBN(isbn) && title.size() > 0 && author.size() > 0;
+    return validateISBN(isbn) && (title.size() > 0) && (author.size() > 0);
 }
 
 bool Book::validateISBN(string isbn)
