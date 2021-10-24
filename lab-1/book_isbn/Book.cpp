@@ -13,7 +13,9 @@
     f. Have != also compare the ISBN strings.
     g. Have a << operator print out the title, author and ISBN on separate lines.
 */
+
 #include <iostream>
+#include <vector>
 #include "Date.cpp"
 
 using namespace std;
@@ -28,16 +30,32 @@ private:
     bool _chekedOut;
 
     bool isValid(string isbn, string title, string author);
+    bool validateISBN(string isbn);
 
 public:
     Book(string isbn, string title, string author, Date copyrightDate);
     Book(string isbn, string title, string author, Date copyrightDate, bool checkedOut);
 
-    string getIsbn() { return _isbn; }
-    string getTitle() { return _title; }
-    string getAuthor() { return _author; }
-    Date getCopyrightDate() { return _copyrightDate; }
-    bool getCheckedOut() { return _chekedOut; }
+    string getIsbn()
+    {
+        return _isbn;
+    }
+    string getTitle()
+    {
+        return _title;
+    }
+    string getAuthor()
+    {
+        return _author;
+    }
+    Date getCopyrightDate()
+    {
+        return _copyrightDate;
+    }
+    bool getCheckedOut()
+    {
+        return _chekedOut;
+    }
 
     void checkIn();
     void checkOut();
@@ -51,7 +69,7 @@ public:
 Book::Book(string isbn, string title, string author, Date copyrightDate)
 {
     if (!isValid(isbn, title, author))
-        throw "check failed!";
+        throw runtime_error("check failed!");
     _isbn = isbn;
     _title = title;
     _author = author;
@@ -61,6 +79,8 @@ Book::Book(string isbn, string title, string author, Date copyrightDate)
 
 Book::Book(string isbn, string title, string author, Date copyrightDate, bool checkedOut)
 {
+    if (!isValid(isbn, title, author))
+        throw runtime_error("check failed!");
     _isbn = isbn;
     _title = title;
     _author = author;
@@ -70,7 +90,58 @@ Book::Book(string isbn, string title, string author, Date copyrightDate, bool ch
 
 bool Book::isValid(string isbn, string title, string author)
 {
-    return isbn.size() != 0 && title.size() != 0 && author.size() != 0;
+    return validateISBN(isbn) && title.size() > 0 && author.size() > 0;
+}
+
+bool Book::validateISBN(string isbn)
+{
+    bool validIsbn = false;
+    if (isbn.size() > 0)
+    {
+        char sep = '-';
+        // vector<string> parts;
+        vector<int> separators;
+
+        // scan separators position
+        for (unsigned int i = 0; i < isbn.size(); i++)
+        {
+            if (isbn[i] == sep)
+            {
+                separators.push_back(i);
+            }
+        }
+        // there are less than 3 parts in the code so it doensn't respect the n-n-n-x format
+        if (separators.size() < 3)
+        {
+            throw runtime_error("wrong ISBN format");
+        }
+
+        string parts1 = (isbn.substr(0, separators[0]));
+        string parts2 = (isbn.substr(separators[0] + 1, (separators[1] - separators[0]) - 1));
+        string parts3 = (isbn.substr(separators[1] + 1, (separators[2] - separators[1]) - 1));
+        string parts4 = (isbn.substr(separators[2] + 1));
+
+        // check each part in order to check if they're composed only by integers
+        for (char const &ch : parts1)
+        {
+            if (!isdigit(ch))
+                return false;
+        }
+
+        for (char const &ch : parts2)
+        {
+            if (!isdigit(ch))
+                return false;
+        }
+
+        for (char const &ch : parts3)
+        {
+            if (!isdigit(ch))
+                return false;
+        }
+    }
+    // the prior checks are positive, checking the fourth part makes no difference
+    return true;
 }
 
 void Book::checkIn()
@@ -95,13 +166,13 @@ bool Book::operator!=(Book &b)
 
 ostream &operator<<(ostream &out, const Book &r)
 {
-    out << "Informazioni libro\n"
+    out << "Info\n"
         << "------------------\n"
-        << "Titolo: " << r._title << "\n"
-        << "Autore: " << r._author << "\n"
-        << "Data: " << r._copyrightDate << "\n"
+        << "Title: " << r._title << "\n"
+        << "Author: " << r._author << "\n"
+        << "Date: " << r._copyrightDate << "\n"
         << "ISBN: " << r._isbn << "\n"
-        << "Disponibilità: " << (r._chekedOut ? "non disponibile" : "disponibile")
+        << "Availability: " << (r._chekedOut ? "available" : "not available")
         << "\n------------------\n";
 
     return out;
