@@ -17,7 +17,7 @@ int main()
     b2.checkIn();
     cout << b2;
 
-    cout << "> " << (b1 == b2 ? "ISBN matches" : "ISBN doesn't matches") << "\n";
+    cout << "> " << (b1 == b2 ? "ISBN matches" : "ISBN doesn't match") << "\n";
 
     return 0;
 }
