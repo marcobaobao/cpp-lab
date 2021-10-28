@@ -1,60 +1,7 @@
 #include <iostream>
+#include "Rational.h"
 
 using namespace std;
-
-class Rational
-{
-private:
-    /*
-        due proprietà:
-        n := numeratore
-        d := denominatore
-
-        headers:
-        gcd(a,b) := calcolo massimo comune divisore
-        reduction() := semplificazione frazione
-    */
-    int n;
-    int d;
-
-    int gcd(int a, int b);
-    Rational reduction();
-
-public:
-    Rational();
-
-    Rational(int n, int d);
-
-    Rational(const Rational &);
-
-    void validate(int d);
-
-    int numerator() const;
-
-    int denominator() const;
-
-    double toDouble(Rational &r);
-
-    Rational operator+(const Rational &r);
-
-    Rational operator-(const Rational &r);
-
-    Rational operator*(const Rational &r);
-
-    Rational operator/(const Rational &r);
-
-    Rational operator+(int a);
-
-    Rational operator-(int a);
-
-    Rational operator*(int a);
-
-    Rational operator/(int a);
-
-    bool operator==(const Rational &r) const;
-
-    friend ostream &operator<<(ostream &out, const Rational &r);
-};
 
 Rational::Rational()
 {
@@ -187,6 +134,6 @@ double Rational::toDouble(Rational &r)
 
 ostream &operator<<(ostream &out, const Rational &r)
 {
-    out << r.n << "/" << r.d;
+    out << r.numerator() << "/" << r.denominator();
     return out;
 }

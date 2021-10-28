@@ -1,47 +1,4 @@
-class Rational
-{
-private:
-    /*
-        due proprietà:  
-        n := numeratore
-        d := denominatore
-
-        headers:
-        gcd(a,b) := calcolo massimo comune divisore
-        reduction() := semplificazione frazione
-    */
-    int n;
-    int d;
-
-    int gcd(int a, int b);
-    void reduction();
-
-public:
-    //headers member functions
-    Rational(int n, int d);
-
-    Rational(const Rational &);
-
-    int numerator() const;
-
-    int denominator() const;
-
-    double toDouble();
-
-    void validate(int d);
-
-    void add(const Rational &r);
-
-    void subtract(const Rational &r);
-
-    void multiply(const Rational &r);
-
-    void divide(const Rational &r);
-
-    bool operator==(Rational &r) const;
-
-    void print_double();
-};
+#include "Rational.h"
 
 Rational::Rational(int nn, int dd)
 {
@@ -64,12 +21,6 @@ int Rational::numerator() const
 int Rational::denominator() const
 {
     return d;
-}
-
-void Rational::validate(int d)
-{
-    if (d == 0)
-        throw "Denominatore non può essere zero";
 }
 
 void Rational::add(const Rational &r)
